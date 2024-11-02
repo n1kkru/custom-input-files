@@ -1,0 +1,47 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main__input {
+  cursor: pointer;
+  display: block;
+  padding: 15px;
+  width: 50vw;
+  height: 100px;
+  border: 1.8px solid rgb(240, 240, 240);
+  border-radius: 40px;
+}
+
+.main__input:hover {
+  background-color: rgb(67, 69, 72);
+  transition: background-color 0.3s;
+}
+
+.main__input input[type=file] {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+ 
+.main__input span,
+.main__input h2 {
+  display: block;
+  text-align: center;
+  color: rgba(240, 240, 240, 0.40);
+}
+
+.main__preview {
+  width: 50vw;
+  max-height: 320px;
+  display: flex;
+  flex-direction: column;
+  padding-block: 20px;
+}
+
+.upload-zone._active {
+  color: #c56fff;
+  background-color: #c56fff77;
+}

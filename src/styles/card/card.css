@@ -1,0 +1,49 @@
+.card {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: auto 50px 150px;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "img name name del"
+    "img format size del";
+  justify-content: space-evenly;
+  gap: 10px;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.card:hover {
+  background-color: rgb(67, 69, 72);
+  transition: background-color 0.3s;
+}
+
+.card__name {
+  grid-area: name;
+  font-size: 14px;
+}
+
+.card__format {
+  grid-area: format;
+  font-size: 11px;
+}
+
+.card__size {
+  grid-area: size;
+  font-size: 11px;
+}
+
+.card__img {
+  grid-area: img;
+  height: 50px;
+}
+
+.card__delete {
+  box-sizing: border-box;
+  background-color: transparent;
+  grid-area: del;
+  width: 25px;
+  max-height: 25px;
+  background-image: url('../../images/delete.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+}

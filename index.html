@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="./src/main.js"></script>
+    <title>Загрузчик</title>
+  </head>
+  <body>
+    <header class="header"></header>
+    <main class="main">
+      <form class="main__form" method="post" enctype="multipart/form-data">
+        <label class="main__input upload-zone" >
+          <input class="form-input" type="file" multiple name="files[]" />
+          <h2>НАЖМИ или ПЕРЕТАЩИ</h2>
+          <span>Загрузите до 5 файлов</span>
+          <span>Размером до 10Мб</span>
+          <span>Формат jpeg, jpg или png</span>
+          
+        </label>
+        <div class="main__preview preview"></div>
+      </form>
+      
+    </main>
+  </body>
+</html>
