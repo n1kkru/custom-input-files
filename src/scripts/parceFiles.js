@@ -67,7 +67,7 @@ export function createCard(file, handlerDelete) {
   return cardElement
 }
 
-export function createCardList(array) {
+export function createCardList(array, block) {
   array.forEach(element => {
     const file = {
       name: element.name,
@@ -80,19 +80,20 @@ export function createCardList(array) {
         const img = card.querySelector('.card__img');
         img.src = reader.result;
         img.style.display = 'block';
-        const previewBlock = document.querySelector('.preview');
-        previewBlock.appendChild(card);
+        
+        block.appendChild(card);
     };
     reader.readAsDataURL(element);
   });
 }
 
-export function changeHandler(e) {
+export function changeHandler(e, block) {
   const array = checkFile(Array.from(e.target.files));
-  createCardList(array);
+  createCardList(array, block);
 }
 
-export function uploadDragnDrop(e) {
-  const array = checkFile(Array.from(e.dataTransfer.files));
-  createCardList(array);
+export function uploadDragnDrop(files, block) {
+
+  const array = checkFile(Array.from(files));
+  createCardList(array, block);
 }

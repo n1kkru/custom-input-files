@@ -10,11 +10,11 @@
   gap: 10px;
   align-items: center;
   border-radius: 15px;
+  transition: background-color 0.3s;
 }
 
 .card:hover {
   background-color: rgb(67, 69, 72);
-  transition: background-color 0.3s;
 }
 
 .card__name {
@@ -33,6 +33,7 @@
 }
 
 .card__img {
+  border-radius: 15px;
   grid-area: img;
   height: 50px;
 }
