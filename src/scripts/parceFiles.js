@@ -40,7 +40,7 @@ export function check(array, block) {
   /* Проверка на 5 файлов */
   const goodLen = findGoodLength(array, block);
   if (array.length > goodLen) {
-    errorBlock.textContent = "Максимум 5 файлов!";
+    errorBlock.textContent = "Превышено допустимое количество файлов: 5";
     errorBlock.classList.add("_active");
   }
   else {
@@ -51,17 +51,17 @@ export function check(array, block) {
   return array.filter((element) => {
     /* Проверка есть ли такой файл */
     if (hasThisFile(element.name, block)) {
-      errorBlock.textContent = `Файл "${element.name}" уже есть!`;
+      errorBlock.textContent = `Файл "${element.name}" уже добавлен`;
       errorBlock.classList.add("_active");
     }
     /* Проверка на размер < 10мб */
     if (!isGoodSize(element.size)) {
-      errorBlock.textContent = `Файл "${element.name}" тяжеловат`;
+      errorBlock.textContent = `Превышен максимальный размер файла`;
       errorBlock.classList.add("_active");
     }
     /* Проверка на формат png jpg jpeg*/
     if (!isGoodType(element.type)) {
-      errorBlock.textContent = `Можно загружать только изображения!`;
+      errorBlock.textContent = `Неверный формат файла`;
       errorBlock.classList.add("_active");
     }
 

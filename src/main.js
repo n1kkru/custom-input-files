@@ -1,21 +1,28 @@
-import './style.css'
-import { changeHandler, check } from './scripts/parceFiles.js'
-import { trueAPI } from './scripts/api.js';
+import "./style.css";
+import { changeHandler, check } from "./scripts/parceFiles.js";
+import { trueAPI } from "./scripts/api.js";
 
-const header = document.querySelector('.header');
-const main = document.querySelector('.main');
+const header = document.querySelector(".header");
+const main = document.querySelector(".main");
 
 /*header*/
 const headerTitle = document.createElement("h1");
-headerTitle.textContent = 'Загрузчик';
+headerTitle.textContent = "Загрузчик";
 header.appendChild(headerTitle);
+
+/*описание */
+const description = document.createElement("p");
+description.classList.add("main__desc");
+description.textContent =
+  "Вы можете загрузить до 5 файлов JPG, JPEG, PNG, размер одного — до 10 МБ";
 
 /*форма с инпутом*/
 const form = document.createElement("form");
 form.classList.add("main__form");
-form.type = 'input';
+form.type = "input";
 form.enctype = "multipart/form-data";
 form.method = "post";
+form.action = "#";
 
 const label = document.createElement("label");
 label.classList.add("form-upload-zone");
@@ -33,7 +40,7 @@ inputTitle.textContent = "НАЖМИ или ПЕРЕТАЩИ";
 
 const errorBlock = document.createElement("span");
 errorBlock.classList.add("error-message");
-errorBlock.textContent = "Ошибка!"
+errorBlock.textContent = "Ошибка!";
 
 const preview = document.createElement("div");
 preview.classList.add("preview");
@@ -50,8 +57,8 @@ form.append(label);
 form.append(errorBlock);
 form.append(preview);
 form.append(submitButton);
+main.appendChild(description);
 main.appendChild(form);
-
 
 /*слушатели*/
 label.addEventListener("change", (e) => {
@@ -62,18 +69,18 @@ label.addEventListener("change", (e) => {
 
 ["dragover", "drop"].forEach((e) => {
   document.addEventListener(e, (evt) => {
-    evt.preventDefault()
-    return false
-  })
-})
+    evt.preventDefault();
+    return false;
+  });
+});
 
 label.addEventListener("dragenter", () => {
-  label.classList.add("_active")
-})
+  label.classList.add("_active");
+});
 
 label.addEventListener("dragleave", () => {
-  label.classList.remove("_active")
-})
+  label.classList.remove("_active");
+});
 
 label.addEventListener("drop", (e) => {
   label.classList.remove("_active");
@@ -81,18 +88,19 @@ label.addEventListener("drop", (e) => {
   const array = check(Array.from(files), preview);
   changeHandler(array, preview);
   submitButton.disabled = false;
-})
+});
 
 input.addEventListener("input", (e) => {
   if (e.target.files) {
     submitButton.disabled = false;
   }
-})
+});
 
 submitButton.addEventListener("click", async (e) => {
   e.preventDefault();
   preview.textContent = "";
+  submitButton.disabled = true;
   const preloader = document.querySelector(".preloader");
   preloader.style.visibility = "visible";
   await trueAPI(preloader);
-})
+});
