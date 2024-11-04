@@ -1,5 +1,6 @@
 import './style.css'
-import { changeHandler, uploadDragnDrop } from './scripts/parceFiles.js'
+import { changeHandler, check } from './scripts/parceFiles.js'
+import { trueAPI } from './scripts/api.js';
 
 const header = document.querySelector('.header');
 const main = document.querySelector('.main');
@@ -25,6 +26,7 @@ input.classList.add("form-input");
 input.type = "file";
 input.multiple = "multiple";
 input.name = "files[]";
+input.accept = "image/jpeg,image/png,image/jpg";
 
 const inputTitle = document.createElement("h2");
 inputTitle.textContent = "НАЖМИ или ПЕРЕТАЩИ";
@@ -34,38 +36,63 @@ errorBlock.classList.add("error-message");
 errorBlock.textContent = "Ошибка!"
 
 const preview = document.createElement("div");
-preview.classList.add("preview")
+preview.classList.add("preview");
+
+const submitButton = document.createElement("button");
+submitButton.type = "submit";
+submitButton.disabled = true;
+submitButton.classList.add("form-submit");
+submitButton.textContent = "Отправить";
 
 label.append(inputTitle);
 label.append(input);
 form.append(label);
 form.append(errorBlock);
 form.append(preview);
+form.append(submitButton);
 main.appendChild(form);
 
 
 /*слушатели*/
-label.addEventListener("change", (e) => {changeHandler(e, preview)});
+label.addEventListener("change", (e) => {
+  preview.textContent = "";
+  const array = check(Array.from(e.target.files), preview);
+  changeHandler(array, preview);
+});
 
-["dragover", "drop"].forEach(function(event) {
-  document.addEventListener(event, function(evt) {
+["dragover", "drop"].forEach((e) => {
+  document.addEventListener(e, (evt) => {
     evt.preventDefault()
     return false
   })
 })
 
-label.addEventListener("dragenter", function() {
+label.addEventListener("dragenter", () => {
   label.classList.add("_active")
 })
 
-label.addEventListener("dragleave", function() {
+label.addEventListener("dragleave", () => {
   label.classList.remove("_active")
 })
 
 label.addEventListener("drop", (e) => {
   label.classList.remove("_active");
-  const file = e.dataTransfer?.files;
-  if (file) {
-    uploadDragnDrop(file, preview);
+  const files = e.dataTransfer?.files;
+  const array = check(Array.from(files), preview);
+  changeHandler(array, preview);
+  submitButton.disabled = false;
+})
+
+input.addEventListener("input", (e) => {
+  if (e.target.files) {
+    submitButton.disabled = false;
   }
+})
+
+submitButton.addEventListener("click", async (e) => {
+  e.preventDefault();
+  preview.textContent = "";
+  const preloader = document.querySelector(".preloader");
+  preloader.style.visibility = "visible";
+  await trueAPI(preloader);
 })

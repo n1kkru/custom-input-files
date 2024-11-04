@@ -26,12 +26,20 @@ function findGoodLength(files, block) {
   }
 }
 
-function check(array, block) {
+function hasThisFile(name, block) {
+  const namesList = block.querySelectorAll(".card__name");
+  const has = Array.from(namesList).find((element) => element.innerText === name)
+  if (has) {
+    return true
+  }
+  return false
+}
+
+export function check(array, block) {
   const errorBlock = document.querySelector(".error-message");
+  /* Проверка на 5 файлов */
   const goodLen = findGoodLength(array, block);
-  console.log('good len => ', goodLen, array);
   if (array.length > goodLen) {
-    // alert(`Максимум 5 файлов!`);
     errorBlock.textContent = "Максимум 5 файлов!";
     errorBlock.classList.add("_active");
   }
@@ -39,16 +47,25 @@ function check(array, block) {
     errorBlock.classList.remove("_active");
   }
   array = array.slice(0, goodLen);
-  
 
   return array.filter((element) => {
+    /* Проверка есть ли такой файл */
+    if (hasThisFile(element.name, block)) {
+      errorBlock.textContent = `Файл "${element.name}" уже есть!`;
+      errorBlock.classList.add("_active");
+    }
+    /* Проверка на размер < 10мб */
     if (!isGoodSize(element.size)) {
-      alert(`${element.name} тяжеловат`);
+      errorBlock.textContent = `Файл "${element.name}" тяжеловат`;
+      errorBlock.classList.add("_active");
     }
+    /* Проверка на формат png jpg jpeg*/
     if (!isGoodType(element.type)) {
-      alert(`${element.name} не с нашего района`);
+      errorBlock.textContent = `Можно загружать только изображения!`;
+      errorBlock.classList.add("_active");
     }
-    return isGoodType(element.type) && isGoodSize(element.size);
+
+    return !hasThisFile(element.name, block) && isGoodType(element.type) && isGoodSize(element.size);
   });
 }
 
@@ -82,6 +99,9 @@ export function createCard(file, handlerDelete) {
   const buttonDelete = document.createElement("button");
   buttonDelete.className = "card__delete";
   buttonDelete.addEventListener("click", () => {
+    if (cardElement.parentElement.children.length == 1) {
+      document.querySelector(".form-submit").disabled = true;
+    };
     handlerDelete(cardElement);
   });
   cardElement.append(buttonDelete);
@@ -109,12 +129,6 @@ export function createCardList(array, block) {
   });
 }
 
-export function changeHandler(e, block) {
-  const array = check(Array.from(e.target.files), block);
-  createCardList(array, block);
-}
-
-export function uploadDragnDrop(files, block) {
-  const array = check(Array.from(files), block);
+export function changeHandler(array, block) {
   createCardList(array, block);
 }
