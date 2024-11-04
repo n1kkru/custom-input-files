@@ -38,7 +38,7 @@ h1, h2, h3, p {
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 1em;
+  padding: 0.4em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;

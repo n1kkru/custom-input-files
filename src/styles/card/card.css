@@ -1,15 +1,15 @@
 .card {
-  padding: 10px;
   display: grid;
-  grid-template-columns: auto 50px 150px;
+  grid-template-columns: 25px 90px 35px auto;
   grid-template-rows: auto auto;
   grid-template-areas:
-    "img name name del"
-    "img format size del";
+    "del img name name"
+    "del img format size";
   justify-content: space-evenly;
-  gap: 10px;
   align-items: center;
+  gap: 10px;
   border-radius: 15px;
+  padding: 10px;
   transition: background-color 0.3s;
 }
 
@@ -19,6 +19,8 @@
 
 .card__name {
   grid-area: name;
+  max-width: 100%;
+  overflow-wrap: break-word;
   font-size: 14px;
 }
 
@@ -33,18 +35,24 @@
 }
 
 .card__img {
-  border-radius: 15px;
   grid-area: img;
+  justify-self: center;
+  max-width: 90px;
   height: 50px;
+  border-radius: 15px;
 }
 
 .card__delete {
-  box-sizing: border-box;
-  background-color: transparent;
   grid-area: del;
+  box-sizing: border-box;
   width: 25px;
   max-height: 25px;
+  background-color: transparent;
   background-image: url('../../images/delete.svg');
-  background-position: center;
   background-repeat: no-repeat;
+  background-position: center;
+}
+
+.card:has(.card__delete:hover) {
+  background-color: rgb(150, 62, 62);
 }

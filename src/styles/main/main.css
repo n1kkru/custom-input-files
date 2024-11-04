@@ -1,48 +1,57 @@
 .main {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
-.main__input {
-  cursor: pointer;
+.form-upload-zone {
   display: block;
-  padding: 15px;
   width: 50vw;
   height: 100px;
   border: 1.8px solid rgb(240, 240, 240);
   border-radius: 40px;
+  padding: 15px;
+  cursor: pointer;
 }
 
-.main__input:hover {
+.form-upload-zone:hover {
   background-color: rgb(67, 69, 72);
   transition: background-color 0.3s;
 }
 
-.main__input input[type=file] {
-	position: absolute;
-	z-index: -1;
-	opacity: 0;
+.form-input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
 }
- 
-.main__input span,
-.main__input h2 {
+
+.form-upload-zone span,
+.form-upload-zone h2 {
   display: block;
+  color: rgba(240, 240, 240, 0.4);
   text-align: center;
-  color: rgba(240, 240, 240, 0.40);
 }
 
-.main__preview {
-  width: 50vw;
-  max-height: 320px;
-  display: flex;
-  flex-direction: column;
-  padding-block: 20px;
-  align-items: flex-start;
-}
-
-.upload-zone._active {
+.form-upload-zone._active {
   color: #c56fff;
   background-color: #c56fff77;
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 50vw;
+  max-height: 320px;
+}
+
+.error-message {
+  color: rgb(150, 62, 62);
+  padding-inline: 15px;
+  visibility: hidden;
+}
+
+.error-message._active {
+  visibility: visible;
 }
